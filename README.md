@@ -12,8 +12,8 @@ $ npm i -g formatree-cli
 ```
 $ formatree --help
 
-	Usage
-	  $ formatree <structure> [--limit=<number>] [--spacing=<number>] [--values]
+  Usage
+    $ formatree <structure> [--limit=<number>] [--spacing=<number>] [--values]
   Options
     -l, --limit     Limit the tree at a specific branch depth.
     -s, --spacing   Add some extra lines between the tree branches.

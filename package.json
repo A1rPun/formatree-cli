@@ -7,6 +7,12 @@
     "test": "exit 1"
   },
   "author": "A1rPun",
+  "bin": {
+    "formatree": "cli.js"
+  },
+  "files": [
+    "cli.js"
+  ],
   "license": "MIT",
   "repository": {
     "type": "git",
