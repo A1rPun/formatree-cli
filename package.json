@@ -1,6 +1,6 @@
 {
   "name": "formatree-cli",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Format a tree like structure to a depth indented string",
   "main": "cli.js",
   "scripts": {
