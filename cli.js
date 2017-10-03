@@ -32,6 +32,7 @@ const cli = meow(`
       l: 'limit',
       s: 'spacing',
       a: 'values',
+      t: 'theme',
     },
   });
 
