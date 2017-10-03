@@ -1,6 +1,6 @@
 {
   "name": "formatree-cli",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Format a tree like structure to a depth indented string",
   "main": "cli.js",
   "scripts": {
@@ -25,14 +25,18 @@
     "folder",
     "object",
     "string",
-    "indent"
+    "indent",
+    "lines",
+    "ascii",
+    "commands",
+    "cli"
   ],
   "bugs": {
     "url": "https://github.com/A1rPun/formatree-cli/issues"
   },
   "homepage": "https://github.com/A1rPun/formatree-cli#readme",
   "dependencies": {
-    "formatree": "^1.0.0",
+    "formatree": "^1.0.2",
     "get-stdin": "^5.0.1",
     "meow": "^3.7.0"
   }

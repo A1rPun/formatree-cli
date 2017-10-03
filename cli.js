@@ -7,13 +7,16 @@ const meow = require('meow');
 const path = require('path');
 
 const cli = meow(`
-	Usage
-	  $ formatree <structure> [--limit=<number>] [--spacing=<number>] [--values]
+  Usage
+    $ formatree [--limit=<number>] [--spacing=<number>] [--values] [--theme=<string>]
   Options
+    -v, --version   Show this help
     -l, --limit     Limit the tree at a specific branch depth.
     -s, --spacing   Add some extra lines between the tree branches.
-    -v, --values    Show the values of the siblings in the tree
-	Examples
+    -a, --values    Show the values of the siblings in the tree
+    -t, --theme     Customize the output of the tree
+                    themes: ascii, clean, stripes, arrows
+  Examples
     $ formatree
     .
     └── foo
@@ -23,21 +26,28 @@ const cli = meow(`
     .
     └── foo (1337 bytes)
 
-`,{
-  alias: {
-    l: 'limit',
-    s: 'spacing',
-    v: 'values',
-  },
-});
+`, {
+    alias: {
+      v: 'version',
+      l: 'limit',
+      s: 'spacing',
+      a: 'values',
+    },
+  });
 
 const limit = cli.flags.limit;
 const input = cli.input[0];
+const themes = {
+  ascii: { sibling: '|-- ', lastSibling: '`-- ', indent: '|   ' },
+  clean: { header: '', sibling: ' ', lastSibling: ' ', indent: '  ', lastIndent: '  ', footer: '' },
+  stripes: { sibling: '─ ', lastSibling: '─ ', indent: '──', lastIndent: '──' },
+  arrows: { header: 'v', sibling: '> ', lastSibling: '> ', indent: '>>', lastIndent: '>>', footer: '^' },
+};
 
 if (input) {
-	init(input);
+  init(input);
 } else {
-	getStdin().then(init);
+  getStdin().then(init);
 }
 
 function walkSync(dir, level) {
@@ -54,5 +64,7 @@ function walkSync(dir, level) {
 
 function init(data) {
   const structure = data ? JSON.parse(data) : walkSync(process.cwd(), 0);
-	console.log(formatree(structure, cli.flags));
+  const theme = themes[cli.flags.theme] || {};
+  const options = Object.assign({}, theme, cli.flags);
+  console.log(formatree(structure, options));
 }

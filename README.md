@@ -18,7 +18,7 @@ $ formatree --help
     -l, --limit     Limit the tree at a specific branch depth.
     -s, --spacing   Add some extra lines between the tree branches.
     -v, --values    Show the values of the siblings in the tree
-	Examples
+  Examples
     $ formatree
     .
     └── foo
