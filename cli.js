@@ -10,12 +10,19 @@ const cli = meow(`
   Usage
     $ formatree [--limit=<number>] [--spacing=<number>] [--values] [--theme=<string>]
   Options
-    -v, --version   Show this help
-    -l, --limit     Limit the tree at a specific branch depth.
-    -s, --spacing   Add some extra lines between the tree branches.
-    -a, --values    Show the values of the siblings in the tree
-    -t, --theme     Customize the output of the tree
-                    themes: ascii, clean, stripes, arrows
+    -v, --version     Show this help
+    -l, --limit       Limit the tree at a specific branch depth.
+    -s, --spacing     Add some extra lines between the tree branches.
+    -a, --values      Show the values of the siblings
+    -t, --theme       Customize the output of the tree
+                      themes: ascii, clean, stripes, arrows
+    -h, --header      The first line of the tree
+    -f, --footer      The last line of the tree
+    -p, --parent      Append a string after a parent branch
+        --sibling
+        --lastSibling
+        --indent
+        --lastIndent
   Examples
     $ formatree
     .
@@ -24,7 +31,7 @@ const cli = meow(`
 
     $ formatree --limit=1 --values
     .
-    └── foo (1337 bytes)
+    └── foo (/foo)
 
 `, {
     alias: {
@@ -33,6 +40,9 @@ const cli = meow(`
       s: 'spacing',
       a: 'values',
       t: 'theme',
+      h: 'header',
+      f: 'footer',
+      p: 'parent',
     },
   });
 
@@ -66,7 +76,7 @@ function walkSync(dir, level) {
 }
 
 function init(data) {
-  const structure = data ? JSON.parse(data) : walkSync(process.cwd(), 0);
+  const structure = data ? data : walkSync(process.cwd(), 0);
   const theme = themes[cli.flags.theme] || {};
   const options = Object.assign({}, theme, cli.flags);
   console.log(formatree(structure, options));

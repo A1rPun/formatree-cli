@@ -13,11 +13,21 @@ $ npm i -g formatree-cli
 $ formatree --help
 
   Usage
-    $ formatree <structure> [--limit=<number>] [--spacing=<number>] [--values]
+    $ formatree [--limit=<number>] [--spacing=<number>] [--values] [--theme=<string>]
   Options
-    -l, --limit     Limit the tree at a specific branch depth.
-    -s, --spacing   Add some extra lines between the tree branches.
-    -v, --values    Show the values of the siblings in the tree
+    -v, --version     Show this help
+    -l, --limit       Limit the tree at a specific branch depth.
+    -s, --spacing     Add some extra lines between the tree branches.
+    -a, --values      Show the values of the siblings
+    -t, --theme       Customize the output of the tree
+                      themes: ascii, clean, stripes, arrows
+    -h, --header      The first line of the tree
+    -f, --footer      The last line of the tree
+    -p, --parent      Append a string after a parent branch
+        --sibling
+        --lastSibling
+        --indent
+        --lastIndent
   Examples
     $ formatree
     .
@@ -26,7 +36,7 @@ $ formatree --help
 
     $ formatree --limit=1 --values
     .
-    └── foo (1337 bytes)
+    └── foo (/foo)
 
 ```
 
