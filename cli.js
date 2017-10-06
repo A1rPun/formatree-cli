@@ -52,15 +52,18 @@ if (input) {
 }
 
 function walkSync(dir, level) {
-  const stats = fs.statSync(dir);
-  return stats.isDirectory() && (!limit || level < limit)
-    ? fs.readdirSync(dir)
-      .sort((a, b) => Array.isArray(a) ? 0 : 1)
-      .reduce((acc, f) => {
-        acc[f] = walkSync(path.join(dir, f), level + 1)
-        return acc;
-      }, {})
-    : stats.size + ' byte' + (stats.size > 1 ? 's' : '');
+  try {
+    const stats = fs.statSync(dir);
+    return stats.isDirectory() && (!limit || level < limit)
+      ? fs.readdirSync(dir)
+        .reduce((acc, f) => {
+          acc[f] = walkSync(path.join(dir, f), level + 1);
+          return acc;
+        }, {})
+      : stats.size + ' byte' + (stats.size > 1 ? 's' : '');
+  } catch (e) {
+    return '';
+  }
 }
 
 function init(data) {
