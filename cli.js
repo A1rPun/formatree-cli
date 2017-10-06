@@ -53,14 +53,13 @@ if (input) {
 
 function walkSync(dir, level) {
   try {
-    const stats = fs.statSync(dir);
-    return stats.isDirectory() && (!limit || level < limit)
+    return fs.statSync(dir).isDirectory() && (!limit || level < limit)
       ? fs.readdirSync(dir)
         .reduce((acc, f) => {
           acc[f] = walkSync(path.join(dir, f), level + 1);
           return acc;
         }, {})
-      : stats.size + ' byte' + (stats.size > 1 ? 's' : '');
+      : dir;
   } catch (e) {
     return '';
   }
